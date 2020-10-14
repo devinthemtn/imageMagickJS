@@ -3,11 +3,21 @@ const gm = require("gm").subClass({ imageMagick: true });
 
 const [, , doFunc, inputFile, newFile, ...args] = process.argv;
 
-// console.log("arg1: ", arg1);
-// console.log("arg2: ", inputFile);
 function setFuncByName(filename) {
-  if (filename.match(/_1(_?)./)) {
-    //odd page
+  const regExIsPoster = /Poster/;
+  const regExIsLandscape = /_L\.\w+$/;
+  const isOddPage = getPageNum(filename) % 2 !== 0;
+  console.log("is Odd: ", isOddPage);
+  if (regExIsPoster.test(filename)) {
+    // fileName is Poster Image
+    if (regExIsLandscape.test(filename)) {
+      // fileName is Poster & landscape
+    }
+  } else {
+    if (regExIsLandscape.test(filename)) {
+      // fileName is in Landscape & NOT poster
+      console.log("Landscape yes");
+    }
   }
 }
 
@@ -20,7 +30,7 @@ function getPageNum(filename) {
   return justNumA[0];
 }
 
-// setFuncByName(inputFile);
+setFuncByName(inputFile);
 let pageNum = getPageNum(inputFile);
 console.log("pageNum: ", pageNum);
 
