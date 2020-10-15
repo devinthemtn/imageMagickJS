@@ -60,12 +60,13 @@ if (doFunc === "thumb") {
       if (err) console.warn("error writing", err);
       else console.log("done");
     });
-} else if (doFunc === "posterCutRotate") {
+} else if (doFunc === "cutPosterRotateCW") {
   if (pageNum % 2 === 0) {
     //even page number
     //cut on right
     gm(inputFile)
-      .crop(910, 1310, 30, 60)
+      .crop(910, 1310, 0, 60)
+      .rotate("white", 90)
       .write(newFile, (err) => {
         if (err) console.warn("error writing", err);
         else console.log("done");
@@ -73,6 +74,13 @@ if (doFunc === "thumb") {
   } else {
     //odd page number
     //cut on left
+    gm(inputFile)
+      .crop(910, 1310, 30, 60)
+      .rotate("white", 90)
+      .write(newFile, (err) => {
+        if (err) console.warn("error writing", err);
+        else console.log("done");
+      });
   }
 } else if (doFunc === "cutPoster") {
   if (pageNum % 2 === 0) {
